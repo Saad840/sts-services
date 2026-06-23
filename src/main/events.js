@@ -79,10 +79,17 @@ export function bindInteractions() {
 
   $(".quote-form")?.addEventListener("submit", submitContactForm);
 
-  $(".search-form")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const query = event.currentTarget.querySelector("input").value.trim();
-    if (query) window.location.href = `/blogs/?s=${encodeURIComponent(query)}`;
+  document.querySelectorAll(".search-form").forEach((form) => {
+    form.querySelector("input")?.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      form.requestSubmit();
+    });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const query = event.currentTarget.querySelector("input").value.trim();
+      if (query) window.location.href = `/?s=${encodeURIComponent(query)}`;
+    });
   });
 
   document.querySelectorAll("[data-service-tab]").forEach((button) => {

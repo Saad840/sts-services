@@ -591,6 +591,15 @@ button, input, select, textarea { font: inherit; }
 .blog-pagination span { color: var(--navy); font-size: 14px; font-weight: 800; }
 .blog-pagination a { min-width: 27px; min-height: 29px; display: inline-grid; place-items: center; }
 .blog-pagination a.active { border: 2px solid var(--navy); }
+.search-results-title { padding-top: 34px; }
+.search-results-title h1 { color: var(--navy); }
+.search-results-page { padding-top: 46px; }
+.search-result-card h2 { font-size: 18px; }
+.search-result-card h2::after { display: none; }
+.search-result-card img { max-width: 700px; }
+.search-result-card .blog-read-more { min-height: 38px; padding: 0 18px; }
+.search-pagination .active { min-width: 27px; min-height: 29px; display: inline-grid; place-items: center; border: 2px solid var(--navy); }
+.search-no-results { color: #7f8993; font-size: 15px; line-height: 1.8; margin: 0; }
 .service-archive-title { background: #fff; border-top: 1px solid #e9edf2; padding: 36px 0 12px; }
 .service-archive-title nav { color: #9aa2aa; font-size: 12px; margin-bottom: 28px; }
 .service-archive-title nav a { color: #8e98a3; }

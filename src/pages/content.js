@@ -1013,6 +1013,195 @@ function blogSidebar() {
   </aside>`;
 }
 
+const cadSearchResults = [
+  {
+    title: "CAD Engineer",
+    href: "/careers_archive/cad-engineer/",
+    date: "April 29, 2026",
+    author: "madhusudan pandey",
+    category: "",
+    excerpt: "",
+    image: ""
+  },
+  {
+    title: "AI-Powered CAD Design: Smarter, Faster, and More Innovative",
+    href: "/ai-powered-cad-design/",
+    date: "June 30, 2025",
+    author: "madhusudan pandey",
+    category: "Architecture",
+    image: "/assets/images/cad-drafting-services-hero.jpg",
+    excerpt: "In the fast-evolving world of engineering and design, staying ahead means adopting technologies that streamline workflows, reduce errors, and unlock creativity. Artificial intelligence is transforming traditional CAD design into a smarter, faster, and more innovative process."
+  },
+  {
+    title: "Why Global Firms Choose India for CAD Outsourcing",
+    href: "/cad-outsourcing/",
+    date: "June 23, 2025",
+    author: "madhusudan pandey",
+    category: "Architecture",
+    image: "/assets/images/blogs/top-engineering-outsourcing-services-in-india.webp",
+    excerpt: "Precision, speed, and cost-effectiveness are essential in the global engineering community. India combines engineering knowledge, scalable resources, and quality CAD delivery for firms seeking a reliable outsourcing partner."
+  },
+  {
+    title: "Mechanical Drawing vs CAD Modeling: What's the Difference?",
+    href: "/mechanical-drawing-vs-cad-modeling/",
+    date: "June 1, 2025",
+    author: "madhusudan pandey",
+    category: "Mechanical",
+    image: "/assets/images/mechanical-cad-reference-MEP-Mechanical-CAD.jpg",
+    excerpt: "Mechanical drawing and CAD modeling are both fundamental to the design and development of components and systems, but they differ significantly in methodology, tools, accuracy, and efficiency."
+  },
+  {
+    title: "Why More Engineering Firms Are Choosing to Outsource 2D Mechanical CAD Work",
+    href: "/outsource-2d-mechanical-cad/",
+    date: "April 11, 2025",
+    author: "madhusudan pandey",
+    category: "Mechanical",
+    image: "/assets/images/engineering-solutions.jpg",
+    excerpt: "Engineering has become more competitive and fast-paced. Outsourcing 2D mechanical CAD work gives firms scalability, flexibility, specialist expertise, and cost-effective support for demanding schedules."
+  },
+  {
+    title: "How Outsourced Mechanical CAD Services Are Reshaping Product Development",
+    href: "/outsourced-mechanical-cad-services/",
+    date: "April 8, 2025",
+    author: "madhusudan pandey",
+    category: "Mechanical",
+    image: "/assets/images/blogs/how-outsourcing-engineering-services-drives-innovation-and-enhances-operational-efficiency.webp",
+    excerpt: "Modern product development depends on accuracy, speed, and technical innovation. Outsourced mechanical CAD services help teams expand capacity and move designs toward production more efficiently."
+  },
+  {
+    title: "Outsource 3D CAD Modeling Services & Reduce Design Costs by Up to 57%",
+    href: "/outsource-3d-cad-modeling-services/",
+    date: "March 31, 2025",
+    author: "madhusudan pandey",
+    category: "Architecture",
+    image: "/assets/images/blogs/outsourcing-3d-modeling-services-for-aec-and-engineering-projects.webp",
+    excerpt: "In today's dynamic engineering landscape, agility and scalability are paramount. Outsourced 3D CAD modeling provides specialized expertise and flexible capacity without the cost and complexity of permanent hiring."
+  },
+  {
+    title: "PDF to AutoCAD: The Ultimate Guide to Converting PDF to DWG and DXF",
+    href: "/converting-pdf-to-dwg-and-dxf/",
+    date: "March 12, 2025",
+    author: "madhusudan pandey",
+    category: "Mechanical",
+    image: "/assets/images/cad-drafting-services-hero.jpg",
+    excerpt: "Converting PDF files to DWG and DXF enables engineers, architects, and designers to edit and reuse existing drawings in AutoCAD without rebuilding them from scratch."
+  },
+  {
+    title: "How to Optimize Sheet Metal Design Using CAD Software",
+    href: "/sheet-metal-design/",
+    date: "March 5, 2025",
+    author: "madhusudan pandey",
+    category: "Architecture",
+    image: "/assets/images/engineering-solutions.jpg",
+    excerpt: "Modern CAD software provides tools that simplify the design, validation, and production of sheet metal components while helping reduce waste and improve manufacturability."
+  },
+  {
+    title: "Role of CAD/CAM in Modern Tooling and Fixture Design",
+    href: "/modern-tooling-and-fixture-design/",
+    date: "February 12, 2025",
+    author: "madhusudan pandey",
+    category: "Mechanical",
+    image: "/assets/images/case-study/weldingfixturedesign1-1-e1618308286715-350x195.jpg",
+    excerpt: "CAD/CAM has changed tooling and fixture design as manufacturers face rising demands for precision, efficiency, automation, and optimized production results."
+  },
+  {
+    title: "How 3D CAD Models Enhance Precision and Efficiency in Engineering",
+    href: "/3d-cad-models/",
+    date: "February 6, 2025",
+    author: "madhusudan pandey",
+    category: "Mechanical",
+    image: "/assets/images/blogs/how-the-right-engineering-design-partner-can-elevate-your-project-outcomes.webp",
+    excerpt: "3D CAD models have introduced a new level of precision and efficiency in engineering, supporting detailed components, design validation, communication, and reusable digital model collections."
+  },
+  {
+    title: "Top AutoCAD Tips to Boost Your Productivity and Master Design Efficiency",
+    href: "/top-autocad-tips-to-boost-productivity/",
+    date: "January 28, 2025",
+    author: "madhusudan pandey",
+    category: "Mechanical",
+    image: "/assets/images/cad-drafting-services-hero.jpg",
+    excerpt: "Practical AutoCAD techniques help designers work faster, organize drawings more clearly, reduce repetitive effort, and produce consistent engineering documentation."
+  }
+];
+
+const searchPageSize = 12;
+
+function searchIndex() {
+  const generalEntries = [
+    ...blogPosts.map((post) => ({ ...post, author: "Tejas" })),
+    ...jobs.map(([title, , category, date, href]) => ({ title, href, category, date, author: "madhusudan pandey", image: "", excerpt: "" })),
+    ...Object.entries(staticPages).map(([href, page]) => ({
+      title: page.title,
+      href,
+      date: "",
+      author: "",
+      category: "",
+      image: page.image || "",
+      excerpt: page.body?.[0] || ""
+    }))
+  ];
+  const seen = new Set();
+  return [...cadSearchResults, ...generalEntries].filter((entry) => {
+    if (seen.has(entry.href)) return false;
+    seen.add(entry.href);
+    return true;
+  });
+}
+
+function searchPagination(query, page, totalPages) {
+  if (totalPages <= 1) return "";
+  const href = (value) => `${value === 1 ? "/" : `/page/${value}/`}?s=${encodeURIComponent(query)}`;
+  const visible = totalPages <= 5 ? Array.from({ length: totalPages }, (_, index) => index + 1) : [1, 2, 3, totalPages];
+  const items = [];
+  let previous = 0;
+  visible.forEach((value) => {
+    if (value - previous > 1) items.push("<span>...</span>");
+    items.push(value === page
+      ? `<span class="active" aria-current="page">${value}</span>`
+      : `<a href="${href(value)}">${value}</a>`);
+    previous = value;
+  });
+  if (page < totalPages) items.push(`<a href="${href(page + 1)}" aria-label="Next page">&gt;</a>`);
+  return `<nav class="blog-pagination search-pagination" aria-label="Search result pages">${items.join("")}</nav>`;
+}
+
+export function searchResultsPage(query, requestedPage = 1) {
+  const normalizedQuery = query.toLocaleLowerCase();
+  const results = searchIndex().filter((entry) =>
+    [entry.title, entry.category, entry.excerpt].some((value) => value?.toLocaleLowerCase().includes(normalizedQuery))
+  );
+  const totalPages = Math.max(1, Math.ceil(results.length / searchPageSize));
+  const page = Math.min(Math.max(1, requestedPage), totalPages);
+  const posts = results.slice((page - 1) * searchPageSize, page * searchPageSize);
+  const resultLabel = query.replace(/[<>&"']/g, "");
+
+  return `<section class="service-archive-title search-results-title">
+      <div class="container">
+        <nav><a href="/">Home</a> <span>&gt;</span> Search results for '${resultLabel}'</nav>
+        <h1>Search Results</h1>
+      </div>
+    </section>
+    <main id="main" class="blog-archive-page search-results-page">
+      <div class="container blog-archive-layout">
+        <section class="blog-post-list search-result-list">${posts.length ? posts.map((post) => `<article class="blog-post-card search-result-card">
+          <h2><a href="${post.href}">${post.title}</a></h2>
+          <div class="blog-meta">
+            ${post.date ? `<span>${post.date}</span>` : ""}
+            ${post.author ? `<span>Posted by: ${post.author}</span>` : ""}
+            <span>${post.category ? `Category: ${post.category}` : "Categories:"}</span>
+            <span>No Comments</span>
+          </div>
+          ${post.image ? `<a href="${post.href}"><img src="${post.image}" alt="${post.title}" loading="lazy"></a>` : ""}
+          ${post.excerpt ? `<p>${post.excerpt}</p>` : ""}
+          <a class="blog-read-more" href="${post.href}">Read more <span aria-hidden="true">&gt;</span></a>
+        </article>`).join("") : `<p class="search-no-results">No results were found for '${resultLabel}'. Try another search term.</p>`}
+          ${searchPagination(query, page, totalPages)}
+        </section>
+        ${blogSidebar().replace('placeholder="Search..."', `placeholder="Search..." value="${resultLabel}"`)}
+      </div>
+    </main>`;
+}
+
 const aecArchiveExcerpt = "Bonds and commodities are much more stable than stocks and trades. We allow our clients to invest in the right bonds & commodities.";
 const aecArchivePageSize = 12;
 const aecArchiveSeedPages = [

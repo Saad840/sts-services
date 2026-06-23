@@ -17,6 +17,7 @@ const routes = new Set([
   "/blogs/",
   "/news/",
   "/blogs-2/",
+  ...Array.from({ length: 37 }, (_, index) => `/page/${index + 2}/`),
   ...aecServiceCategoryRoutes,
   "/ai-in-construction/",
   "/ai-in-construction-key-benefits-challenges-applications-and-future-trends/",

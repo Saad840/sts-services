@@ -2,7 +2,7 @@ import { allServices, staticPages, jobs } from "../data/index.js";
 import { header, footer } from "../components/layout.js";
 import { home } from "../pages/home.js";
 import { servicesPage, serviceDetail, bimCoordinationPage, revitFamilyCreationPage, shopDrawingsPage, cobieServicesPage, scanToBimReferencePage, fourDBimPage, fiveDBimPage, architecturalRenderingPage, architectural3dModelingPage, architecturalBimModelingPage, revitBimServicesPage, architecturalConstructionDocsPage, modularBimServicesPage, architectural2dDraftingPage, lightingDesignServicesPage, structuralBatchPage, millworkDraftingPage, engineeringBatchPage, engineeringServiceRoutes, contractStaffingPage, mepHeroPage, mepServiceRoutes } from "../pages/services.js";
-import { staticPage, contactPage, careersPage, testimonialsPage, privacyPolicyPage, termsConditionsPage, caseStudyPage, blogPage, aecServiceCategoryPage, aecServiceCategoryRoutes, articlePage, workCulturePage, lifeAtMilestonePage, faqPage, whyMilestonePage, awardsRecognitionsPage, companyOverviewPage, dataSecurityPage, aiConstructionArticlePage, constructionDocumentationArticlePage, millworkShopDrawingErrorsArticlePage, mepConstructionArticlePage, bimForArchitectsArticlePage, shopDrawingsVsAsBuiltArticlePage, bimInConstructionArticlePage, dronesConstructionArticlePage, outsourcing3dModelingArticlePage, structuralDesignProcessArticlePage, valueEngineeringConstructionArticlePage, constructionStagesArticlePage, architecturalDesignPhasesArticlePage, parametricVsGenerativeArticlePage, oemVsOdmArticlePage, lidarScanToBimArticlePage, architecturalDrawingsArticlePage, outsourcingEngineeringServicesPage, architecturalEngineeringArticlePage, architecturalDraftingArticlePage, engineeringDesignPartnerArticlePage, outsourcingEngineeringServiceArticlePage, engineeringOutsourcingIndiaArticlePage, bimOutsourcingArticlePage } from "../pages/content.js";
+import { staticPage, contactPage, careersPage, testimonialsPage, privacyPolicyPage, termsConditionsPage, caseStudyPage, blogPage, searchResultsPage, aecServiceCategoryPage, aecServiceCategoryRoutes, articlePage, workCulturePage, lifeAtMilestonePage, faqPage, whyMilestonePage, awardsRecognitionsPage, companyOverviewPage, dataSecurityPage, aiConstructionArticlePage, constructionDocumentationArticlePage, millworkShopDrawingErrorsArticlePage, mepConstructionArticlePage, bimForArchitectsArticlePage, shopDrawingsVsAsBuiltArticlePage, bimInConstructionArticlePage, dronesConstructionArticlePage, outsourcing3dModelingArticlePage, structuralDesignProcessArticlePage, valueEngineeringConstructionArticlePage, constructionStagesArticlePage, architecturalDesignPhasesArticlePage, parametricVsGenerativeArticlePage, oemVsOdmArticlePage, lidarScanToBimArticlePage, architecturalDrawingsArticlePage, outsourcingEngineeringServicesPage, architecturalEngineeringArticlePage, architecturalDraftingArticlePage, engineeringDesignPartnerArticlePage, outsourcingEngineeringServiceArticlePage, engineeringOutsourcingIndiaArticlePage, bimOutsourcingArticlePage } from "../pages/content.js";
 import { $ } from "../utils/dom.js";
 import { path, titleFromPath } from "../utils/path.js";
 import { bindInteractions } from "./events.js";
@@ -12,9 +12,12 @@ export function renderRoute() {
   const service = allServices.find((s) => s.href === current);
   const job = jobs.find((j) => j[4] === current);
   const blogPageMatch = current.match(/^\/blogs\/page\/([2-9]|[12]\d|3[0-3])\/$/);
+  const searchPageMatch = current.match(/^\/page\/([2-9]\d*)\/$/);
   const aecCategoryMatch = current.match(/^\/stm_service_category\/aec-services\/(?:(?:page\/([2-9]\d*)\/)|(?:archive\/([a-z]+-\d{4})\/(?:page\/([2-9]\d*)\/)?))?$/);
+  const searchQuery = new URLSearchParams(window.location.search).get("s")?.trim() || "";
   let body;
-  if (current === "/") body = home();
+  if (searchQuery && (current === "/" || searchPageMatch)) body = searchResultsPage(searchQuery, Number(searchPageMatch?.[1] || 1));
+  else if (current === "/") body = home();
   else if (current === "/service/bim-coordination/") body = bimCoordinationPage();
   else if (current === "/service/revit-family-creation/") body = revitFamilyCreationPage();
   else if (current === "/service/shop-drawings/") body = shopDrawingsPage();
@@ -90,6 +93,8 @@ export function renderRoute() {
   else if (staticPages[current]) body = staticPage(staticPages[current]);
   else body = articlePage(titleFromPath(current));
   $("#app").innerHTML = `${header()}${body}${footer()}`;
-  document.title = `${titleFromPath(current === "/" ? "Engineering Design & BIM Services" : current)} | Milestone PLM Solutions`;
+  document.title = searchQuery
+    ? `Search results for '${searchQuery}' | Milestone PLM Solutions`
+    : `${titleFromPath(current === "/" ? "Engineering Design & BIM Services" : current)} | Milestone PLM Solutions`;
   bindInteractions();
 }
