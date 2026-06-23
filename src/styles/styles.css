@@ -731,3 +731,168 @@ button, input, select, textarea { font: inherit; }
   .life-gallery img { height: 190px; }
   .life-join { padding: 48px 0; }
 }
+
+@media (max-width: 900px) {
+  html, body { overflow-x: hidden; }
+  .container { width: min(100% - 28px, 1140px); }
+  .home-hero .hero-copy { padding-left: 0; }
+  .home-hero .hero-copy h1 { max-width: 520px; font-size: 46px; }
+  .service-tabs { grid-template-columns: 1fr; margin-top: -38px; }
+  .coordination-layout { grid-template-columns: 1fr; }
+  .coordination-sidebar { order: 2; }
+  .coordination-industries,
+  .coordination-industries.revit-industries,
+  .service-info-boxes,
+  .why-recognition-grid,
+  .case-grid,
+  .careers-job-list,
+  .office-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .blog-article-page .blog-archive-layout { grid-template-columns: 1fr; }
+  .jobs article { grid-template-columns: 1fr 1fr; align-items: start; }
+  .jobs article .btn { width: max-content; }
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .contact-map { height: 360px; }
+}
+
+@media (max-width: 760px) {
+  .site-header { top: 0; }
+  .top-bar { display: none; }
+  .nav-shell { min-height: 74px; }
+  .brand img { width: min(185px, 58vw); }
+  .primary-nav { max-height: calc(100vh - 74px); }
+  .primary-nav ul { padding: 8px 18px 14px; }
+  .drop-menu a,
+  .mega-menu a,
+  .service-menu-item > a,
+  .subservices-menu a { white-space: normal; }
+  .home-hero,
+  .hero-slider { height: auto; min-height: 430px; }
+  .home-hero .hero-copy h1 { max-width: 330px; font-size: 40px; line-height: 1.12; }
+  .home-hero .hero-copy p { letter-spacing: 4px; margin-bottom: 20px; }
+  .page-title,
+  .coordination-hero,
+  .work-culture-hero,
+  .privacy-hero { min-height: 190px; }
+  .coordination-hero h1,
+  .page-title h1,
+  .privacy-hero h1 { font-size: 32px; }
+  .section,
+  .blog-archive-page,
+  .privacy-content,
+  .work-culture-main,
+  .life-section { padding-top: 44px; padding-bottom: 54px; }
+  .services-heading { min-height: 190px; }
+  .services-heading h2 { font-size: 32px; line-height: 1.14; text-align: center; padding: 0 14px; }
+  .service-feature,
+  .home-why,
+  .testimonials,
+  .industries { padding-top: 54px; padding-bottom: 58px; }
+  .service-feature > img,
+  .service-card img,
+  .lead-image,
+  .blog-post-card img,
+  .blog-article-hero { width: 100%; height: auto; max-width: 100%; }
+  .service-card,
+  .split-grid,
+  .home-why .split-grid,
+  .contact-top-grid,
+  .company-overview-grid,
+  .company-holder-grid,
+  .careers-join-grid,
+  .life-intro,
+  .content-with-sidebar,
+  .blog-archive-layout { grid-template-columns: 1fr; }
+  .industry-grid,
+  .testimonial-grid,
+  .testimonials-list-grid,
+  .card-grid,
+  .coordination-industries,
+  .coordination-industries.revit-industries,
+  .service-info-boxes,
+  .why-recognition-grid,
+  .case-grid,
+  .careers-job-list,
+  .office-cards,
+  .stats,
+  .footer-grid,
+  .life-card-grid,
+  .life-video-grid,
+  .life-gallery,
+  .privacy-columns { grid-template-columns: 1fr; }
+  .industry-grid { gap: 24px; }
+  .industry-default { grid-template-columns: 58px 1fr; gap: 16px; padding: 20px; }
+  .testimonial-grid article > p,
+  .testimonial-page-card > p { min-height: 0; }
+  .contact-form-fields,
+  .quote-form .two { grid-template-columns: 1fr; }
+  .quote-form fieldset { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .quote-form legend { grid-column: 1 / -1; }
+  .captcha-placeholder { grid-template-columns: 24px 1fr auto; }
+  .office-cards article { min-height: 0; }
+  .contact-map { height: 320px; }
+  .blog-sidebar { grid-template-columns: 1fr; }
+  .blog-meta { display: grid; justify-content: start; }
+  .blog-compare-table { min-width: 560px; }
+  .jobs article { grid-template-columns: 1fr; }
+  .case-filters { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
+  .case-filters button { flex: 0 0 auto; }
+  .case-study-cta .container,
+  .pilot-cta .container,
+  .cta-band .container { flex-direction: column; align-items: flex-start; padding: 18px 0; }
+  .copyright { padding-left: 14px; padding-right: 14px; text-align: center; }
+}
+
+@media (max-width: 520px) {
+  body { font-size: 14px; line-height: 1.65; }
+  .container { width: min(100% - 24px, 1140px); }
+  h1 { font-size: 31px; }
+  h2,
+  .service-feature h2,
+  .coordination-content h2,
+  .contact-copy h1,
+  .contact-offices h2,
+  .quote-form h2,
+  .careers h2,
+  .careers-copy h2,
+  .work-culture-section h2,
+  .life-page h2,
+  .life-join h2 { font-size: 25px; line-height: 1.2; }
+  .home-hero,
+  .hero-slider { min-height: 390px; }
+  .home-hero .hero-copy h1 { font-size: 34px; max-width: 290px; }
+  .home-hero .hero-copy p { letter-spacing: 2px; }
+  .yellow-btn,
+  .btn,
+  .home-hero .yellow-btn { width: 100%; min-width: 0; }
+  .service-tabs { gap: 10px; margin-top: -24px; }
+  .service-tabs button { min-height: 52px; padding: 12px; }
+  .service-card,
+  .service-info-box,
+  .coordination-accordion > div,
+  .coordination-accordion p,
+  .quote-form,
+  .office-cards article,
+  .careers-job-list article,
+  .testimonial-page-card > p,
+  .testimonial-grid article > p,
+  .privacy-section,
+  .why-reference-quote,
+  .awards-intro blockquote { padding-left: 20px; padding-right: 20px; }
+  .coordination-help { padding: 22px; }
+  .coordination-sidebar nav a { padding: 14px 18px; }
+  .coordination-industries div { grid-template-columns: 42px 1fr; gap: 14px; }
+  .quote-form fieldset { grid-template-columns: 1fr; }
+  .captcha-placeholder { grid-template-columns: 24px 1fr; }
+  .captcha-placeholder small { grid-column: 2; }
+  .contact-map { height: 280px; }
+  .office-cards h3 { font-size: 21px; }
+  .case-card-image img { height: 180px; }
+  .footer-grid { gap: 26px; padding-top: 42px; padding-bottom: 48px; }
+  .footer-links { grid-template-columns: 1fr; gap: 12px; }
+  .site-footer h3 { font-size: 22px; margin-bottom: 18px; }
+  .search-form { grid-template-columns: 1fr 48px; }
+  .blog-article h1 { font-size: 28px; }
+  .blog-article h2 { font-size: 22px; }
+  .blog-table-wrap { margin-left: -12px; margin-right: -12px; padding: 0 12px; }
+  .life-gallery img { width: 100%; height: auto; min-height: 180px; }
+}
