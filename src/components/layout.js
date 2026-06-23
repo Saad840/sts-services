@@ -19,9 +19,10 @@ export function servicesDropdown(group) {
     { label: "Contract Staffing", href: staffing[0]?.[1] || "/service/contract-staffing-services/" }
   ];
 
-  return `<li class="has-menu services-root"><a href="${group.href}">${group.label}</a><div class="services-menu" role="menu">${menu.map((item) => `
+  return `<li class="has-menu services-root"><a href="${group.href}">${group.label}</a><button class="nav-submenu-toggle" type="button" aria-label="Expand ${group.label}" aria-expanded="false">+</button><div class="services-menu" role="menu">${menu.map((item) => `
     <div class="service-menu-item ${item.items?.length ? "has-subservices" : ""}">
       <a href="${item.href}" role="menuitem">${item.label}${item.items?.length ? "<span aria-hidden=\"true\">›</span>" : ""}</a>
+      ${item.items?.length ? `<button class="service-submenu-toggle" type="button" aria-label="Expand ${item.label}" aria-expanded="false">+</button>` : ""}
       ${item.items?.length ? `<div class="subservices-menu">${item.items.map(link).join("")}</div>` : ""}
     </div>
   `).join("")}</div></li>`;
@@ -33,7 +34,7 @@ export function header() {
       return servicesDropdown(group);
     }
     if (group.items) {
-      return `<li class="has-menu"><a href="${group.href}">${group.label}</a><div class="drop-menu">${group.items.map(link).join("")}</div></li>`;
+      return `<li class="has-menu"><a href="${group.href}">${group.label}</a><button class="nav-submenu-toggle" type="button" aria-label="Expand ${group.label}" aria-expanded="false">+</button><div class="drop-menu">${group.items.map(link).join("")}</div></li>`;
     }
     return `<li><a href="${group.href}">${group.label}</a></li>`;
   }).join("");
@@ -50,7 +51,7 @@ export function header() {
         <div class="container nav-shell">
           <a class="brand" href="/" aria-label="Milestone PLM Solutions home"><img src="${asset("2019/09/Full-Logo-PLM.png")}" alt="Milestone PLM Solutions"></a>
           <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav"><span></span><span></span><span></span><b>Menu</b></button>
-          <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation"><ul>${mega}</ul></nav>
+          <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation"><ul>${mega}</ul><div class="mobile-socials" aria-label="Social links"><a href="/contact-us/">f</a><a href="/contact-us/">in</a><a href="/contact-us/">yt</a></div></nav>
           <div class="socials" aria-label="Social links"><a href="/contact-us/">f</a><a href="/contact-us/">in</a><a href="/contact-us/">yt</a></div>
         </div>
       </div>
@@ -63,24 +64,32 @@ export function officeDetail(index) {
   return `<span>${icons.mail}${office.address}</span><span>${icons.clock}${office.hours}</span><span>${icons.phone}${office.phone}</span>`;
 }
 
+function footerRecentPosts() {
+  return [...recentPosts]
+    .sort((a, b) => Date.parse(b[2] || "") - Date.parse(a[2] || ""))
+    .slice(0, 3)
+    .map(link)
+    .join("");
+}
+
 export function footer() {
   return `
     <footer class="site-footer">
       <div class="container footer-grid">
         <section class="footer-contact">
           <h3>Contact</h3>
-          <p><img src="/assets/icons/mail.svg" alt="">8 The Green #20190, Dover, DE 19901</p>
+          <p><span class="footer-location-icon" aria-hidden="true"></span>8 The Green #20190, Dover, DE 19901</p>
           <p><img src="/assets/icons/clock.svg" alt="">Mon - Fri 08.00 AM - 04:00 PM</p>
           <p><img src="/assets/icons/phone.svg" alt="">+1 302 565 1600</p>
           <p><img src="/assets/icons/mail.svg" alt=""><a href="mailto:info@milestonetech.net">info@milestonetech.net</a></p>
         </section>
         <section>
           <h3>Quick Links</h3>
-          <div class="footer-links">${[["Testimonials", "/testimonials1/"], ["Blogs", "/blogs/"], ["Careers", "/careers-page/"], ["Case Study", "/case-study/"], ["Privacy Policy", "/privacy-policy/"], ["Awards & Recognitions", "/company-overview/awards-recognitions/"], ["Terms & Conditions", "/terms-and-conditions/"], ["Data Security & Confidentiality", "/data-security-confidentiality/"]].map(link).join("")}</div>
+          <div class="footer-links">${[["Testimonials", "/testimonials1/"], ["Blogs", "/blogs/"], ["Careers", "/careers-page/"], ["Case Study", "/case-study/"], ["Privacy Policy", "/privacy-policy/"], ["Awards & Recognitions", "/company-overview/awards-recognitions/"], ["Terms & Conditions", "/terms-and-conditions/"], ["Data Security & Confidentiality", "/data-security-confidentiality/"], ["Training", "/training/"]].map(link).join("")}</div>
         </section>
         <section>
           <h3>Recent Posts</h3>
-          <div class="footer-links">${recentPosts.slice(0, 3).map(link).join("")}</div>
+          <div class="footer-links">${footerRecentPosts()}</div>
         </section>
         <section>
           <h3>Search</h3>
@@ -132,7 +141,7 @@ export function testimonialMini() {
 export function bimHero({ title, image, crumb = title }) {
   return `<section class="coordination-hero" style="background-image:url('${image}')">
     <div class="container">
-      <nav><a href="/">Home</a> <span>&gt;</span> <a href="/services/">Services</a> <span>&gt;</span> <a href="/services/aec-services/">AEC</a> <span>&gt;</span> <a href="/services/bim-services/">BIM Services</a> <span>&gt;</span> ${crumb}</nav>
+      <nav><a href="/">Home</a> <span>&gt;</span> <a href="/services/">Services</a> <span>&gt;</span> <a href="/stm_service_category/aec-services/">AEC</a> <span>&gt;</span> <a href="/services/bim-services/">BIM Services</a> <span>&gt;</span> ${crumb}</nav>
       <h1>${title}</h1>
     </div>
   </section>`;
@@ -175,10 +184,10 @@ export function architecturalServiceSidebar(activeHref) {
   </aside>`;
 }
 
-export function architecturalHero({ title, image, crumb = title }) {
-  return `<section class="coordination-hero architectural-hero" style="background-image:url('${image}')">
+export function architecturalHero({ title, image, crumb = title, heroClass = "" }) {
+  return `<section class="coordination-hero architectural-hero ${heroClass}" style="background-image:url('${image}')">
     <div class="container">
-      <nav><a href="/">Home</a> <span>&gt;</span> <a href="/services/">Services</a> <span>&gt;</span> <a href="/services/aec-services/">AEC</a> <span>&gt;</span> ${crumb}</nav>
+      <nav><a href="/">Home</a> <span>&gt;</span> <a href="/services/">Services</a> <span>&gt;</span> <a href="/stm_service_category/aec-services/">AEC</a> <span>&gt;</span> ${crumb}</nav>
       <h1>${title}</h1>
     </div>
   </section>`;
@@ -222,7 +231,7 @@ export function structuralServiceSidebar(activeHref) {
 export function structuralHero({ title, image, crumb = title }) {
   return `<section class="coordination-hero structural-hero" style="background-image:url('${image}')">
     <div class="container">
-      <nav><a href="/">Home</a> <span>&gt;</span> <a href="/services/">Services</a> <span>&gt;</span> <a href="/services/aec-services/">AEC</a> <span>&gt;</span> <a href="/stm_service_category/structural-services/">Structural</a> <span>&gt;</span> ${crumb}</nav>
+      <nav><a href="/">Home</a> <span>&gt;</span> <a href="/services/">Services</a> <span>&gt;</span> <a href="/stm_service_category/aec-services/">AEC</a> <span>&gt;</span> <a href="/stm_service_category/structural-services/">Structural</a> <span>&gt;</span> ${crumb}</nav>
       <h1>${title}</h1>
     </div>
   </section>`;

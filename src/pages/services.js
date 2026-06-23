@@ -1,6 +1,80 @@
-import { asset, allServices, serviceCards } from "../data/index.js";
+import { asset, allServices, recentPosts, testimonials } from "../data/index.js";
 import { pageHero, sidebar, bimServiceShell, architecturalServiceShell, architecturalServiceSidebar, structuralServiceShell, engineeringServiceShell, staffingServiceShell, mepServiceShell } from "../components/layout.js";
 import { path, titleFromPath } from "../utils/path.js";
+
+const serviceCategoryIntros = {
+  "BIM Services": {
+    image: "/assets/images/bim-services-bim-modeling.jpg",
+    copy: "BIM modeling, coordination, family creation, scan-to-BIM, scheduling and quantity workflows for construction teams."
+  },
+  "Architectural Services": {
+    image: "/assets/images/architectural-bim-modeling-banner.jpg",
+    copy: "Architectural visualization, BIM modeling, construction documentation, drafting and design support."
+  },
+  "Structural Services": {
+    image: "/assets/images/structural-bim-hero.jpg",
+    copy: "Structural BIM, detailing, shop drawings, rebar, precast and construction documentation services."
+  },
+  "MEP Services": {
+    image: "/assets/images/mep-bim-services-reference-MEP-BIM-Services-2.jpg",
+    copy: "Coordinated mechanical, electrical and plumbing BIM, drafting, shop drawing and as-built support."
+  },
+  "Engineering Solutions": {
+    image: "/assets/images/engineering-solutions.jpg",
+    copy: "Product design, CAD detailing, manufacturing support, simulation, documentation and rapid prototyping."
+  },
+  "Staffing": {
+    image: "/assets/images/contract-staffing-services-hero.jpg",
+    copy: "Flexible engineering staffing, millwork drafting and modeling support for specialized delivery needs."
+  }
+};
+
+const serviceImageMap = {
+  "BIM Modeling": "/assets/images/bim-modeling.jpg",
+  "BIM Coordination": "/assets/images/bim-coordination.jpg",
+  "Revit Family Creation": "/assets/images/revit-families.png",
+  "Shop Drawings": "/assets/images/bim-shop-drawings.jpg",
+  "COBie Services": "/assets/images/cobie-services.jpg",
+  "Scan to BIM": "/assets/images/scan-to-bim.jpg",
+  "4D BIM - Construction Simulation": "/assets/images/4d-bim-construction-simulation.jpg",
+  "5D BIM": "/assets/images/5d-bim-services.jpg",
+  "3D rendering services": "/assets/images/3d-rendering-services.jpg",
+  "Architectural 3D Modeling": "/assets/images/architectural-3d-modeling.jpg",
+  "Architectural BIM Modeling": "/assets/images/architectural-bim-modeling-banner.jpg",
+  "Revit BIM Services": "/assets/images/revit-bim-services.jpg",
+  "Architectural Construction Docs": "/assets/images/architectural-construction-docs-reference-Architectural-Construction-Docs.jpg",
+  "Modular BIM": "/assets/images/architectural-modular-bim.jpg",
+  "Architectural 2D Drafting": "/assets/images/architectural-2d-drafting-content.jpg",
+  "Lighting Design": "/assets/images/architectural-visualization.jpg",
+  "Structural BIM": "/assets/images/structural-bim-hero.jpg",
+  "Steel Detailing": "/assets/images/steel-detailing-hero.jpg",
+  "Precast Detailing": "/assets/images/precast-detailing-hero.jpg",
+  "Structural Shop Drawing Services": "/assets/images/structural-shop-drawings-reference-Structural-Shop-Drawings.jpg",
+  "Rebar Detailing Services": "/assets/images/rebar-detailing-hero.jpg",
+  "Structural Construction Documentation Services": "/assets/images/structural-construction-document-reference-Construction-Docs.jpg",
+  "Structural 3D Modeling Services": "/assets/images/structural-3d-modeling-hero.jpg",
+  "Structural 2d drafting": "/assets/images/structural-2d-drafting-hero.jpg",
+  "MEP BIM Services": "/assets/images/mep-bim-services-reference-MEP-BIM-Services-2.jpg",
+  "MEP Drafting": "/assets/images/mep-drafting-services-reference-MEP-Drafting.jpg",
+  "MEP BIM Modeling": "/assets/images/mep-bim-modeling-services-reference-MEP-BIM-Modeling.jpeg",
+  "MEP Coordination": "/assets/images/mep-coordination-reference-MEP-Coordination.jpg",
+  "MEP Shop Drawing Services": "/assets/images/mep-shop-drawing-reference-MEP-SHOP-DRAWINGS.jpg",
+  "Mechanical CAD": "/assets/images/mechanical-cad-reference-MEP-Mechanical-CAD.jpg",
+  "Electrical Drawings": "/assets/images/electrical-drawings-reference-ELECTRICAL-DRAWINGS.jpg",
+  "As-Built Drafting": "/assets/images/as-built-drafting-reference-AS-BUILT-DRAFTING-1.jpg",
+  "Product Design & Development": "/assets/images/product-design-and-development-hero.jpg",
+  "CAD & Detailing": "/assets/images/cad-drafting-services-hero.jpg",
+  "Manufacturing Support": "/assets/images/manufacturing-support-hero.jpg",
+  "Automotive Design": "/assets/images/automotive-design-reference-Automotive-Design-Services.jpg",
+  "CFD & FEA": "/assets/images/fea-services-cfd-cae-simulation-hero.jpg",
+  "Meshing Services": "/assets/images/meshing-services-hero.jpg",
+  "Aftermarket/ Engg. Documentation": "/assets/images/technical-documentation-services-hero.jpg",
+  "Value Engineering & Value Analysis": "/assets/images/value-engineering-value-analysis-hero.jpg",
+  "Rapid Prototyping": "/assets/images/rapid-prototyping-services-hero.jpg",
+  "Contract Staffing": "/assets/images/contract-staffing-services-hero.jpg",
+  "Millwork Design": "/assets/images/millwork-drafting-services-hero.jpg",
+  "Furniture Modeling": "/assets/images/millwork-drafting-services-candidate-Millwork-Drafting-Services-1.jpg"
+};
 
 const industryIconMap = {
   "Retail Shops": "/assets/icons/cart.svg",
@@ -31,6 +105,62 @@ const industryIconMap = {
   "Residential Buildings": "/assets/icons/home.svg"
 };
 
+const servicesReferenceCards = [
+  ["structural 2D Drafting Services", "/service/structural-2d-drafting/", "/assets/images/services/Structural-2D-Drafting-Services-255x182.jpg"],
+  ["MEP 3D Modeling", "/service/mep-3d-modeling/", "/assets/images/services/millwork-255x182.jpg"],
+  ["MEP BIM Services", "/service/mep-bim-services/", "/assets/images/services/MEP-BIM-Services-1-255x182.jpg"],
+  ["As-Built Drafting", "/service/as-built-drafting/", "/assets/images/services/MEP-As-Built-Drafting-255x182.jpg"],
+  ["Electrical Drawings", "/service/electrical-drawings/", "/assets/images/services/MEP-Electrical-Drawings-1-255x182.jpg"],
+  ["Mechanical CAD", "/service/mechanical-cad/", "/assets/images/services/MEP-Mechanical-CAD-255x182.jpg"],
+  ["MEP Shop Drawing Services", "/service/mep-shop-drawing/", "/assets/images/services/MEP-Shop-drawing-255x182.jpg"],
+  ["MEP Coordination", "/service/mep-coordination/", "/assets/images/services/MEP-Coordination-1-255x182.jpg"],
+  ["Structural 3D Modeling Services", "/service/structural-3d-modeling/", "/assets/images/services/Structural-3D-Modeling-255x182.jpg"],
+  ["Structural Construction Documentation Services", "/service/structural-construction-document/", "/assets/images/services/Construction-Docs-255x182.jpg"],
+  ["Rebar Detailing Services", "/service/rebar-detailing/", "/assets/images/services/Structural-Rebar-Detailing-255x182.jpg"],
+  ["Precast Detailing", "/service/precast-detailing/", "/assets/images/services/Structural-Precast-Detailing-255x182.jpg"],
+  ["Steel Detailing", "/service/steel-detailing/", "/assets/images/services/Structural-Steel-Detailing-255x182.jpg"],
+  ["Structural BIM", "/service/structural-bim/", "/assets/images/services/Structural-BIM-255x182.jpg"],
+  ["Modular BIM", "/service/modular-bim-services/", "/assets/images/services/Architectural-Modular-BIM-2-255x182.jpg"],
+  ["Architectural Construction Docs", "/service/architectural-construction-docs/", "/assets/images/services/Architectural-Construction-Docs-255x182.jpg"],
+  ["4D BIM - Construction Simulation", "/service/4d-bim-construction-simulation/", "/assets/images/services/4D-BIM-Construction-Simulation-255x182.jpg"],
+  ["COBie Services", "/service/cobie-services/", "/assets/images/services/COBie-Services-255x182.jpg"],
+  ["Shop Drawings", "/service/shop-drawings/", "/assets/images/services/BIM-Shop-Drawings-255x182.jpg"]
+];
+
+const servicesNewsDates = ["March 31, 2026", "February 27, 2026"];
+
+function servicesReferenceCard([title, href, image]) {
+  return `<a class="services-ref-card" href="${href}">
+    <img src="${image}" alt="${title}" loading="lazy">
+    <span class="services-ref-card-overlay"></span>
+    <span class="services-ref-card-copy"><strong>${title}</strong><em>Read more</em></span>
+  </a>`;
+}
+
+function servicesReferenceSidebar() {
+  const [name, role, quote] = testimonials[0];
+  return `<aside class="services-ref-sidebar">
+    <section class="services-ref-help">
+      <h3>How can we help you?</h3>
+      <p>Contact us or submit a business inquiry online.</p>
+      <a class="services-ref-contact" href="/contact-us/"><img src="/assets/icons/phone-white.svg" alt="">Contact Us</a>
+    </section>
+    <a class="services-ref-presentation" href="/company-overview/">Company Presentation</a>
+    <section class="services-ref-testimonial">
+      <p>${quote}</p>
+      <div>
+        <img src="${asset("2018/10/placeholder-6-50x50.gif")}" alt="">
+        <strong>${name}</strong>
+        <span>${role}</span>
+      </div>
+    </section>
+    <section class="services-ref-news">
+      <h2>Recent News</h2>
+      ${recentPosts.slice(0, 2).map(([title, href], index) => `<article><a href="${href}">${title}</a><span>${servicesNewsDates[index]}</span></article>`).join("")}
+    </section>
+  </aside>`;
+}
+
 function industryItem([icon, label]) {
   const src = label === "General Contracting" && ["A", "△"].includes(icon)
     ? "/assets/icons/drafting.svg"
@@ -39,8 +169,39 @@ function industryItem([icon, label]) {
   return `<div><span>${iconMarkup}</span><strong>${label}</strong></div>`;
 }
 
+function groupedServices() {
+  return allServices.reduce((groups, service) => {
+    if (!groups.has(service.category)) groups.set(service.category, []);
+    groups.get(service.category).push(service);
+    return groups;
+  }, new Map());
+}
+
+function serviceLandingCard(service) {
+  const image = serviceImageMap[service.title] || serviceCategoryIntros[service.category]?.image || "/assets/images/services-background.jpg";
+  return `
+    <a class="services-landing-card" href="${service.href}" aria-label="Open ${service.title}">
+      <img src="${image}" alt="${service.title}" loading="lazy">
+      <span>${service.category}</span>
+      <h3>${service.title}</h3>
+      <b>Read more</b>
+    </a>`;
+}
+
 export function servicesPage() {
-  return `${pageHero("Services")}<main id="main" class="section"><div class="container"><div class="card-grid">${allServices.map((s, i) => `<article class="tile"><img src="${serviceCards[i % serviceCards.length].image}" alt="" loading="lazy"><h3>${s.title}</h3><p>${s.category}</p><a class="text-link" href="${s.href}">Read more</a></article>`).join("")}</div></div></main><section class="cta-band"><div class="container"><h2>Looking for a First-Class Business Plan Consultant?</h2><a class="btn" href="/contact-us/">get a quote</a></div></section>`;
+  return `
+    <main id="main" class="services-ref-page">
+      <div class="container services-ref-layout">
+        <section class="services-ref-grid" aria-label="Milestone services">
+          <span class="services-ref-spacer" aria-hidden="true"></span>
+          ${servicesReferenceCard(servicesReferenceCards[0])}
+          <span class="services-ref-spacer" aria-hidden="true"></span>
+          ${servicesReferenceCards.slice(1).map(servicesReferenceCard).join("")}
+        </section>
+        ${servicesReferenceSidebar()}
+      </div>
+    </main>
+    <section class="cta-band services-ref-cta"><div class="container"><h2>Looking for a First-Class Business Plan Consultant?</h2><a class="btn" href="#">get a quote <span aria-hidden="true">></span></a></div></section>`;
 }
 
 export function serviceDetail(service) {
@@ -888,7 +1049,7 @@ export function modularBimServicesPage() {
     `).join("")}</section>`;
   return architecturalServiceShell({
     title: "Modular BIM",
-    image: asset("2023/04/Modular-BIM-Services.jpg"),
+    image: asset("2023/04/Architectural-Modular-BIM-1.jpg"),
     activeHref: "/service/modular-bim-services/"
   }, content);
 }
@@ -1214,7 +1375,8 @@ export function millworkDraftingPage() {
   return architecturalServiceShell({
     title: "Millwork Drafting Services",
     image: "/assets/images/millwork-drafting-services-candidate-Millwork-Drafting-Services-1.jpg",
-    activeHref: "/service/millwork-drafting-services/"
+    activeHref: "/service/millwork-drafting-services/",
+    heroClass: "millwork-hero"
   }, content);
 }
 

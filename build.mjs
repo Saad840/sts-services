@@ -2,6 +2,7 @@ import { cp, mkdir, copyFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { allServices, staticPages, jobs, recentPosts, extraBlogSlugs } from "./src/data/index.js";
 import { engineeringServiceRoutes } from "./src/pages/services.js";
+import { aecServiceCategoryRoutes } from "./src/pages/content.js";
 
 const routes = new Set([
   "/",
@@ -16,6 +17,7 @@ const routes = new Set([
   "/blogs/",
   "/news/",
   "/blogs-2/",
+  ...aecServiceCategoryRoutes,
   "/ai-in-construction/",
   "/ai-in-construction-key-benefits-challenges-applications-and-future-trends/",
   ...Array.from({ length: 32 }, (_, index) => `/blogs/page/${index + 2}/`),

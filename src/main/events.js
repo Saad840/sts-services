@@ -5,10 +5,72 @@ import { officeDetail } from "../components/layout.js";
 const CONTACT_FORM_EMAIL = "info@milestonetech.net";
 
 export function bindInteractions() {
-  $(".menu-toggle")?.addEventListener("click", (event) => {
+  const menuToggle = $(".menu-toggle");
+  const primaryNav = $(".primary-nav");
+  const closeMenu = () => {
+    menuToggle?.setAttribute("aria-expanded", "false");
+    primaryNav?.classList.remove("open");
+    primaryNav?.querySelectorAll(".submenu-open").forEach((item) => item.classList.remove("submenu-open"));
+    primaryNav?.querySelectorAll(".nav-submenu-toggle, .service-submenu-toggle").forEach((button) => {
+      button.setAttribute("aria-expanded", "false");
+      button.textContent = "+";
+    });
+  };
+
+  menuToggle?.addEventListener("click", (event) => {
     const expanded = event.currentTarget.getAttribute("aria-expanded") === "true";
     event.currentTarget.setAttribute("aria-expanded", String(!expanded));
-    $(".primary-nav").classList.toggle("open", !expanded);
+    primaryNav?.classList.toggle("open", !expanded);
+  });
+
+  primaryNav?.addEventListener("click", (event) => {
+    const serviceToggle = event.target.closest(".service-submenu-toggle");
+    if (serviceToggle) {
+      event.preventDefault();
+      const item = serviceToggle.closest(".service-menu-item");
+      const shouldOpen = !item.classList.contains("submenu-open");
+      item.parentElement?.querySelectorAll(".service-menu-item.submenu-open").forEach((panel) => {
+        if (panel !== item) {
+          panel.classList.remove("submenu-open");
+          const button = panel.querySelector(".service-submenu-toggle");
+          button?.setAttribute("aria-expanded", "false");
+          if (button) button.textContent = "+";
+        }
+      });
+      item.classList.toggle("submenu-open", shouldOpen);
+      serviceToggle.setAttribute("aria-expanded", String(shouldOpen));
+      serviceToggle.textContent = shouldOpen ? "×" : "+";
+      return;
+    }
+
+    const submenuToggle = event.target.closest(".nav-submenu-toggle");
+    if (submenuToggle) {
+      event.preventDefault();
+      const item = submenuToggle.closest(".has-menu");
+      const shouldOpen = !item.classList.contains("submenu-open");
+      primaryNav.querySelectorAll(":scope > ul > .has-menu.submenu-open").forEach((panel) => {
+        if (panel !== item) {
+          panel.classList.remove("submenu-open");
+          const button = panel.querySelector(":scope > .nav-submenu-toggle");
+          button?.setAttribute("aria-expanded", "false");
+          if (button) button.textContent = "+";
+        }
+      });
+      item.classList.toggle("submenu-open", shouldOpen);
+      submenuToggle.setAttribute("aria-expanded", String(shouldOpen));
+      submenuToggle.textContent = shouldOpen ? "×" : "+";
+      return;
+    }
+
+    if (event.target.closest("a") && window.matchMedia("(max-width: 1020px)").matches) closeMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeMenu();
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.matchMedia("(min-width: 1021px)").matches) closeMenu();
   });
 
   $(".office-select")?.addEventListener("change", (event) => {
