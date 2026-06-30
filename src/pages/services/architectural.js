@@ -1,4 +1,6 @@
 import { architecturalServiceShell, architecturalServiceSidebar } from "../../components/service-layout.js";
+import { asset } from "../../data/index.js";
+import { industryItem } from "./shared.js";
 
 export function architecturalRenderingPage() {
   const industries = [

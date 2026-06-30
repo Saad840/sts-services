@@ -1,4 +1,5 @@
 import { staffingServiceShell } from "../../components/service-layout.js";
+import { serviceAccordions } from "./shared.js";
 
 export function contractStaffingPage() {
   const content = `

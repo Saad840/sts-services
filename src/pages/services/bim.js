@@ -1,5 +1,6 @@
 import { bimServiceShell } from "../../components/service-layout.js";
-import { servicesReferenceSidebar } from "./shared.js";
+import { asset } from "../../data/index.js";
+import { industryItem, serviceInfoBoxes, servicesReferenceSidebar } from "./shared.js";
 
 export function bimModelingPage() {
   const industries = [

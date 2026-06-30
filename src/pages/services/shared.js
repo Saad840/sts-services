@@ -217,6 +217,17 @@ export const pricingAccordions = [
   { title: "Quality Philosophy" }
 ];
 
+export const commonBuildingIndustries = [
+  ["$", "Retail Shops"],
+  ["#", "Office & Commercial"],
+  ["^", "Residential"],
+  ["%", "Restaurants & Hotels"],
+  ["=", "Educational institutions"],
+  ["[]", "Government buildings"],
+  ["*", "Public libraries and Museums"],
+  ["+", "Healthcare facilities"]
+];
+
 export function serviceAccordions() {
   return `<section class="coordination-accordions">${pricingAccordions.map((item) => `
     <article class="coordination-accordion ${item.open ? "open" : ""}">

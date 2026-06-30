@@ -62,7 +62,12 @@ const structuralRoutes = new Set([
 ]);
 
 export function resolveServiceRoute(current) {
-  if (current !== "/services/" && current !== "/service/" && !current.startsWith("/service/")) return undefined;
+  if (
+    current !== "/services/"
+    && current !== "/service/"
+    && !current.startsWith("/service/")
+    && !engineeringServiceRoutes.includes(current)
+  ) return undefined;
 
   const directHandler = directServiceRoutes.get(current);
   if (directHandler) return directHandler();
