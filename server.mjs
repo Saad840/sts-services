@@ -16,7 +16,8 @@ const types = {
   ".jpeg": "image/jpeg",
   ".gif": "image/gif",
   ".webp": "image/webp",
-  ".ico": "image/x-icon"
+  ".ico": "image/x-icon",
+  ".pdf": "application/pdf"
 };
 
 createServer(async (req, res) => {
@@ -27,7 +28,9 @@ createServer(async (req, res) => {
     if (pathname.endsWith("/")) file = join(file, "index.html");
     const ext = extname(file) || ".html";
     const body = await readFile(file);
-    res.writeHead(200, { "Content-Type": types[ext] || "application/octet-stream" });
+    const headers = { "Content-Type": types[ext] || "application/octet-stream" };
+    if (ext === ".pdf") headers["Content-Disposition"] = "inline";
+    res.writeHead(200, headers);
     res.end(body);
   } catch {
     const body = await readFile(join(root, "index.html"));

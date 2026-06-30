@@ -1,6 +1,6 @@
 import { $ } from "../utils/dom.js";
 import { homeServiceTabs } from "../pages/home.js";
-import { officeDetail } from "../components/layout.js";
+import { officeDetail } from "../components/header.js";
 
 const CONTACT_FORM_EMAIL = "info@milestonetech.net";
 
@@ -71,7 +71,10 @@ export function bindInteractions() {
 
   window.addEventListener("resize", () => {
     if (window.matchMedia("(min-width: 1021px)").matches) closeMenu();
+    positionOpenSubservices();
   });
+
+  bindAdaptiveSubservices(primaryNav);
 
   $(".office-select")?.addEventListener("change", (event) => {
     $(".office-detail").innerHTML = officeDetail(Number(event.currentTarget.value));
@@ -171,6 +174,10 @@ export function bindInteractions() {
     });
   });
 
+  bindIndustryJumpNav();
+  bindSampleDrawingPagination();
+  bindSampleDrawingModal();
+
   const slides = [...document.querySelectorAll(".hero-slide")];
   const dots = [...document.querySelectorAll(".slider-dots button")];
   if (slides.length > 1 && dots.length === slides.length) {
@@ -183,6 +190,236 @@ export function bindInteractions() {
       dots[active].classList.add("active");
     }, 5200);
   }
+}
+
+function bindAdaptiveSubservices(primaryNav) {
+  if (!primaryNav) return;
+
+  primaryNav.querySelectorAll(".service-menu-item.has-subservices").forEach((item) => {
+    item.addEventListener("mouseenter", () => positionSubservices(item));
+    item.addEventListener("focusin", () => positionSubservices(item));
+    item.addEventListener("mouseleave", () => resetSubservices(item));
+  });
+}
+
+function positionOpenSubservices() {
+  document.querySelectorAll(".service-menu-item.has-subservices:hover, .service-menu-item.has-subservices:focus-within").forEach(positionSubservices);
+}
+
+function positionSubservices(item) {
+  if (!window.matchMedia("(min-width: 1021px)").matches) {
+    resetSubservices(item);
+    return;
+  }
+
+  const menu = item.querySelector(".subservices-menu");
+  if (!menu) return;
+
+  menu.style.setProperty("--subservices-offset-y", "0px");
+  const itemRect = item.getBoundingClientRect();
+  const menuHeight = menu.offsetHeight;
+  const viewportPadding = 12;
+  const overflow = itemRect.top + menuHeight + viewportPadding - window.innerHeight;
+  const offset = overflow > 0 ? -Math.min(overflow, Math.max(0, itemRect.top - viewportPadding)) : 0;
+  menu.style.setProperty("--subservices-offset-y", `${offset}px`);
+}
+
+function resetSubservices(item) {
+  item.querySelector(".subservices-menu")?.style.removeProperty("--subservices-offset-y");
+}
+
+function bindSampleDrawingModal() {
+  const modal = document.querySelector("[data-sample-modal]");
+  if (!modal) return;
+
+  const image = modal.querySelector("[data-sample-modal-image]");
+  const title = modal.querySelector("[data-sample-modal-title]");
+  const tier = modal.querySelector("[data-sample-modal-tier]");
+  const project = modal.querySelector("[data-sample-modal-project]");
+  const purpose = modal.querySelector("[data-sample-modal-purpose]");
+  const highlight = modal.querySelector("[data-sample-modal-highlight]");
+  const pdfLink = modal.querySelector("[data-sample-modal-pdf]");
+  const closeButtons = modal.querySelectorAll("[data-sample-modal-close]");
+  let lastTrigger = null;
+
+  const setText = (node, value) => {
+    if (node) node.textContent = value || "Not specified";
+  };
+
+  const close = () => {
+    modal.hidden = true;
+    document.body.classList.remove("sample-modal-open");
+    lastTrigger?.focus();
+  };
+
+  const open = (trigger) => {
+    lastTrigger = trigger;
+    const preview = trigger.dataset.modalPreview || "";
+    if (image) {
+      image.src = preview;
+      image.alt = trigger.dataset.modalTitle || "Sample drawing preview";
+    }
+    setText(title, trigger.dataset.modalTitle);
+    setText(tier, trigger.dataset.modalTier);
+    setText(project, trigger.dataset.modalProject);
+    setText(purpose, trigger.dataset.modalPurpose);
+    setText(highlight, trigger.dataset.modalHighlight);
+    if (pdfLink) {
+      const pdf = trigger.dataset.modalPdf || "";
+      pdfLink.href = pdf || "#";
+      pdfLink.hidden = !pdf;
+    }
+    modal.hidden = false;
+    document.body.classList.add("sample-modal-open");
+    modal.querySelector("[data-sample-modal-close]")?.focus();
+  };
+
+  document.querySelectorAll("[data-sample-modal-trigger]").forEach((trigger) => {
+    trigger.addEventListener("click", () => open(trigger));
+  });
+
+  closeButtons.forEach((button) => button.addEventListener("click", close));
+  document.addEventListener("keydown", (event) => {
+    if (!modal.hidden && event.key === "Escape") close();
+  });
+}
+
+function bindSampleDrawingPagination() {
+  const pagination = document.querySelector("[data-sample-pagination]");
+  const cards = [...document.querySelectorAll("[data-sample-card]")];
+  const filterButtons = [...document.querySelectorAll("[data-sample-filter]")];
+  if (!pagination || !cards.length) return;
+
+  const pageSize = Number(pagination.dataset.pageSize || 8);
+  const pageList = pagination.querySelector("[data-sample-page-list]");
+  const prevButton = pagination.querySelector("[data-sample-prev]");
+  const nextButton = pagination.querySelector("[data-sample-next]");
+  let activePage = 1;
+  let activeFilter = "All";
+
+  const visibleCards = () => cards.filter((card) => activeFilter === "All" || card.dataset.sampleCategory === activeFilter);
+
+  const renderPageButtons = (totalPages) => {
+    if (!pageList) return;
+    pageList.innerHTML = Array.from({ length: totalPages }, (_, index) => {
+      const page = index + 1;
+      return `<button type="button" data-sample-page="${page}" ${page === activePage ? `class="active" aria-current="page"` : ""}>${page}</button>`;
+    }).join("");
+    pageList.querySelectorAll("[data-sample-page]").forEach((button) => {
+      button.addEventListener("click", () => update(Number(button.dataset.samplePage)));
+    });
+  };
+
+  const update = (page = 1) => {
+    const filteredCards = visibleCards();
+    const totalPages = Math.max(1, Math.ceil(filteredCards.length / pageSize));
+    activePage = Math.min(Math.max(page, 1), totalPages);
+    const start = (activePage - 1) * pageSize;
+    const end = start + pageSize;
+
+    cards.forEach((card, index) => {
+      const filteredIndex = filteredCards.indexOf(card);
+      card.hidden = filteredIndex < start || filteredIndex >= end;
+    });
+
+    renderPageButtons(totalPages);
+    if (prevButton) prevButton.disabled = activePage === 1;
+    if (nextButton) nextButton.disabled = activePage === totalPages;
+  };
+
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      activeFilter = button.dataset.sampleFilter || "All";
+      filterButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("active", active);
+        item.setAttribute("aria-selected", String(active));
+      });
+      update(1);
+    });
+  });
+
+  prevButton?.addEventListener("click", () => update(activePage - 1));
+  nextButton?.addEventListener("click", () => update(activePage + 1));
+  update(1);
+}
+
+function bindIndustryJumpNav() {
+  const nav = document.querySelector(".industry-jump-nav");
+  const layout = document.querySelector(".industry-detail-layout");
+  if (!nav || !layout) return;
+
+  const topOffset = 92;
+  const desktopQuery = window.matchMedia("(min-width: 901px)");
+  const links = [...nav.querySelectorAll("a[href^='#']")];
+  const sections = links
+    .map((link) => [link, document.querySelector(link.getAttribute("href"))])
+    .filter(([, section]) => section);
+  let frame = 0;
+
+  const setActiveLink = () => {
+    const marker = window.scrollY + topOffset + 80;
+    let activeLink = links[0];
+    sections.forEach(([link, section]) => {
+      if (section.offsetTop <= marker) activeLink = link;
+    });
+    links.forEach((link) => {
+      const active = link === activeLink;
+      link.classList.toggle("active", active);
+      if (active) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    });
+  };
+
+  const reset = () => {
+    nav.classList.remove("is-fixed", "is-bottom");
+    nav.style.removeProperty("--industry-jump-left");
+    nav.style.removeProperty("--industry-jump-width");
+  };
+
+  const update = () => {
+    frame = 0;
+    setActiveLink();
+    if (!desktopQuery.matches) {
+      reset();
+      return;
+    }
+
+    const layoutRect = layout.getBoundingClientRect();
+    const navHeight = nav.offsetHeight;
+    const layoutTop = layoutRect.top + window.scrollY;
+    const layoutBottom = layoutTop + layout.offsetHeight;
+    const fixedStart = layoutTop + 72 - topOffset;
+    const fixedEnd = layoutBottom - navHeight - topOffset;
+
+    if (window.scrollY < fixedStart) {
+      reset();
+      return;
+    }
+
+    if (window.scrollY >= fixedEnd) {
+      nav.classList.remove("is-fixed");
+      nav.classList.add("is-bottom");
+      nav.style.removeProperty("--industry-jump-left");
+      nav.style.removeProperty("--industry-jump-width");
+      return;
+    }
+
+    const navColumn = layout.getBoundingClientRect();
+    nav.classList.remove("is-bottom");
+    nav.classList.add("is-fixed");
+    nav.style.setProperty("--industry-jump-left", `${navColumn.left}px`);
+    nav.style.setProperty("--industry-jump-width", "220px");
+  };
+
+  const requestUpdate = () => {
+    if (frame) return;
+    frame = window.requestAnimationFrame(update);
+  };
+
+  update();
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate);
 }
 
 function submitContactForm(event) {

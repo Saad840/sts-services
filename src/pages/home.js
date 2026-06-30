@@ -1,5 +1,5 @@
 import { asset, industries } from "../data/index.js";
-import { testimonialSection } from "../components/layout.js";
+import { testimonialSection } from "../components/service-layout.js";
 
 export const homeServiceTabs = [
   {

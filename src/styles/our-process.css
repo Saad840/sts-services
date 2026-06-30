@@ -1,0 +1,119 @@
+.our-process-hero {
+  min-height: 610px;
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(90deg, rgba(0,46,91,.9), rgba(0,46,91,.62)), url("/assets/images/our-process/our-process-hero.jpg");
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
+
+.our-process-hero .container { padding: 90px 0; }
+.our-process-hero nav { color: rgba(255,255,255,.84); font-size: 13px; font-weight: 700; margin-bottom: 28px; }
+.our-process-hero nav a { color: #fff; }
+.our-process-hero nav span { margin: 0 9px; color: var(--yellow); }
+.our-process-hero .eyebrow,
+.our-process-page .eyebrow { color: var(--yellow); font-size: 12px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 16px; }
+.our-process-hero h1 { max-width: 860px; color: #fff; font-size: clamp(38px, 5vw, 62px); line-height: 1.05; font-weight: 900; }
+.our-process-hero > .container > p:not(.eyebrow) { max-width: 830px; color: rgba(255,255,255,.9); font-size: 18px; line-height: 1.75; }
+.our-process-hero .check-list { max-width: 790px; margin-top: 22px; }
+.our-process-hero .check-list li { color: #fff; }
+.our-process-hero .check-list li::before { color: var(--yellow); }
+.our-process-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.our-process-hero-actions .btn { background: var(--yellow); color: var(--navy); }
+.our-process-hero-actions .secondary { background: transparent; border: 1px solid rgba(255,255,255,.78); color: #fff; }
+
+.our-process-page { background: #fff; }
+.our-process-page [id] { scroll-margin-top: 92px; }
+.our-process-intro { background: #f7f9fc; }
+.our-process-intro figure,
+.our-process-step figure {
+  margin: 0;
+  padding: 22px;
+  border: 1px solid #e0e6ee;
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(0,46,91,.12);
+}
+
+.our-process-intro figure img { width: 100%; height: 330px; object-fit: cover; }
+.our-process-timeline { background: #fff; padding-top: 38px; }
+.our-process-timeline > .container { display: grid; gap: 30px; }
+
+.our-process-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) minmax(280px, 390px);
+  gap: 30px;
+  align-items: center;
+  padding: 34px;
+  border: 1px solid #e0e6ee;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(0,46,91,.08);
+}
+
+.our-process-step::before {
+  content: "";
+  position: absolute;
+  left: 69px;
+  top: 82px;
+  bottom: -31px;
+  width: 2px;
+  background: #e8edf2;
+}
+
+.our-process-step:last-child::before { display: none; }
+
+.our-process-step-marker {
+  position: relative;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--yellow);
+  font-size: 24px;
+  font-weight: 900;
+  box-shadow: 0 0 0 10px #f7f9fc;
+}
+
+.our-process-step-copy h2 { color: var(--navy); font-size: clamp(24px, 3vw, 34px); font-weight: 900; }
+.our-process-step-copy p { color: #56616d; font-size: 16px; line-height: 1.8; }
+.our-process-step-copy .check-list { margin-top: 20px; }
+.our-process-step-copy .check-list li { color: #4e5a66; }
+.our-process-note {
+  margin: 22px 0;
+  padding: 15px 18px;
+  border-left: 4px solid var(--yellow);
+  background: #f7f9fc;
+  color: var(--navy) !important;
+  font-weight: 800;
+}
+
+.our-process-step figure img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.our-process-faqs { padding-bottom: 86px; }
+.our-process-final-cta { background-image: linear-gradient(90deg, rgba(0,46,91,.92), rgba(0,46,91,.82)), url("/assets/images/our-process/our-process-hero.jpg"); }
+
+@media (max-width: 1020px) {
+  .our-process-step { grid-template-columns: 64px minmax(0, 1fr); }
+  .our-process-step::before { left: 65px; }
+  .our-process-step figure { grid-column: 2; }
+}
+
+@media (max-width: 680px) {
+  .our-process-hero { min-height: 0; }
+  .our-process-hero .container { padding: 64px 0; }
+  .our-process-layout { display: block; padding-top: 0; }
+  .our-process-content > .section > .container { padding-left: 20px; padding-right: 20px; }
+  .our-process-step {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 24px 20px;
+  }
+  .our-process-step::before { display: none; }
+  .our-process-step-marker { width: 58px; height: 58px; font-size: 20px; }
+  .our-process-step figure { grid-column: auto; padding: 14px; }
+  .our-process-intro figure img { height: 260px; }
+  .our-process-hero-actions { align-items: stretch; flex-direction: column; }
+}

@@ -1,0 +1,34 @@
+.contact-page { background: #fff; color: #111; border-top: 1px solid #eceff3; }
+.contact-main-section { padding: 28px 0 54px; }
+.contact-top-grid { display: grid; grid-template-columns: minmax(0, 430px) minmax(0, 470px); gap: 56px; align-items: start; }
+.contact-copy h1,
+.contact-offices h2,
+.quote-form h2 { color: var(--navy); font-size: 30px; line-height: 1.25; font-weight: 900; margin-bottom: 24px; }
+.contact-copy h1::after,
+.contact-offices h2::after,
+.quote-form h2::after { content: ""; display: block; width: 48px; height: 3px; background: #6c98e1; margin-top: 16px; }
+.contact-copy p { color: #2c3843; font-size: 14px; line-height: 1.75; margin-bottom: 14px; }
+
+.quote-form .btn { justify-self: center; width: max-content; min-width: 92px; min-height: 42px; padding: 10px 24px; background: #6c98e1; text-transform: uppercase; font-size: 12px; }
+.quote-form .btn::after { content: ">"; margin-left: 14px; font-size: 15px; }
+.form-note { color: var(--navy); font-weight: 600; margin: 0; }
+.form-note:empty { display: none; }
+.contact-offices { margin-top: 36px; }
+.contact-offices h2 { margin-bottom: 28px; }
+.office-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.office-cards article { min-height: 225px; padding: 34px 40px 28px; border: 0; color: #fff; background: linear-gradient(rgba(0, 20, 65, .88), rgba(0, 20, 65, .88)), url("/assets/images/contact/contact-office-card-bg.jpg") center/cover no-repeat; }
+.office-cards h3 { color: #fff; font-size: 23px; line-height: 1.1; font-weight: 900; margin-bottom: 18px; }
+.office-cards ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.office-cards li { position: relative; color: #fff; font-size: 12px; font-weight: 800; line-height: 1.45; padding-left: 24px; }
+.office-cards li::before { content: ""; position: absolute; left: 0; top: 3px; width: 12px; height: 12px; border-radius: 0; border: 0; background: var(--yellow); }
+.office-cards a { color: #fff; }
+.office-cards li:last-child a { color: var(--yellow); }
+.office-socials { display: flex; gap: 8px; margin-top: 16px; }
+.office-socials span { width: 25px; height: 25px; display: grid; place-items: center; border-radius: 50%; background: #fff; color: var(--navy); font-size: 10px; font-weight: 900; }
+.contact-map { width: 100%; max-width: 950px; height: 300px; margin: 34px 0 0; border: 0; display: block; }
+.careers-page { background: #fff; color: #111; border-top: 1px solid #ececec; }
+.careers-open-section { padding: 28px 0 46px; }
+.careers h2, .careers-copy h2 { color: var(--navy); font-family: Georgia, "Times New Roman", serif; font-size: 40px; line-height: .95; font-weight: 700; margin: 0 0 34px; }
+.careers h2::after,
+.careers-copy h2::after,
+.careers-copy h3::after,

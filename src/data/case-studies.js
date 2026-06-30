@@ -1,0 +1,1 @@
+export const works = ["Architectural Design project", "Demolation", "Co-ordination", "Welding Fixture Design", "Washing Fixture Design", "Reverse Engineering - Console", "MOLDFLOW", "Meshing", "Design Optimisation", "Enclosures - CAD Supports", "DFMA - SUPPORT STRUCTURE", "CFD - Underhood Analysis", "CFD - Ceiling Fan", "Scan To BIM", "CAE Product Testing"];

@@ -1,0 +1,125 @@
+.industries { background: #fff; }
+.industries { padding: 125px 0 105px; }
+.industries h2 { text-align: center; font-size: 30px; margin-bottom: 52px; font-weight: 800; }
+.industry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 62px 30px; }
+.industry-grid article { min-height: 142px; background: #fff; border-top: 8px solid #e5e5e5; box-shadow: 0 10px 0 #e6e6e6, 0 0 0 1px #ededed inset; position: relative; overflow: hidden; outline: 0; }
+.industry-grid article:focus-visible { box-shadow: 0 10px 0 #e6e6e6, 0 0 0 2px var(--navy) inset; }
+.industry-default { position: absolute; inset: 0; display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 22px; padding: 24px 26px; background: #fff; transition: transform .42s cubic-bezier(.22, .61, .36, 1), opacity .28s ease; z-index: 1; }
+.industry-default img { width: 54px; height: 54px; object-fit: contain; }
+.industry-grid h3 { margin: 0; color: var(--navy); font-size: 21px; line-height: 1.15; font-weight: 500; }
+.industry-hover { position: absolute; inset: 0; display: grid; place-items: center; padding: 18px 26px; background: #fff; transform: translateY(105%); transition: transform .42s cubic-bezier(.22, .61, .36, 1); z-index: 2; }
+.industry-hover img { width: 100%; height: 96px; object-fit: cover; }
+.industry-grid article:hover .industry-default,
+.industry-grid article:focus-visible .industry-default,
+.industry-grid article:focus-within .industry-default { transform: translateY(-105%); opacity: .25; }
+.industry-grid article:hover .industry-hover,
+.industry-grid article:focus-visible .industry-hover,
+.industry-grid article:focus-within .industry-hover { transform: translateY(0); }
+
+.industry-detail-hero { min-height: 560px; display: flex; align-items: center; background-size: cover; background-position: center; color: #fff; }
+.industry-detail-hero .container { padding: 90px 0; }
+.industry-detail-hero nav { color: rgba(255,255,255,.86); font-size: 13px; font-weight: 700; margin-bottom: 28px; }
+.industry-detail-hero nav a { color: #fff; }
+.industry-detail-hero nav span { margin: 0 9px; color: var(--yellow); }
+.industry-detail-hero .eyebrow,
+.industry-detail-page .eyebrow { color: var(--yellow); font-size: 12px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 16px; }
+.industry-detail-hero h1 { max-width: 760px; color: #fff; font-size: clamp(38px, 5vw, 62px); line-height: 1.05; font-weight: 900; }
+.industry-detail-hero > .container > p:not(.eyebrow) { max-width: 840px; color: rgba(255,255,255,.9); font-size: 18px; line-height: 1.75; }
+.industry-detail-hero .check-list { max-width: 780px; margin-top: 22px; }
+.industry-detail-hero .check-list li { color: #fff; }
+.industry-detail-hero .check-list li::before { color: var(--yellow); }
+.industry-detail-page { background: #fff; }
+.industry-detail-page [id] { scroll-margin-top: 92px; }
+.industry-detail-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; align-items: start; padding-top: 72px; position: relative; }
+.industry-detail-content { grid-column: 2; min-width: 0; }
+.industry-detail-content > .section { margin-left: 0; margin-right: 0; }
+.industry-detail-content > .section > .container { width: 100%; max-width: none; padding-left: 28px; padding-right: 28px; }
+.industry-jump-nav { grid-column: 1; align-self: start; padding: 24px 18px; border: 1px solid #e5eaf0; background: #fff; box-shadow: 0 18px 45px rgba(0,46,91,.1); z-index: 20; }
+.industry-jump-nav.is-fixed { position: fixed; top: 92px; left: var(--industry-jump-left, 0); width: var(--industry-jump-width, 220px); }
+.industry-jump-nav.is-bottom { position: absolute; left: 0; bottom: 0; width: 220px; }
+.industry-jump-nav p { margin: 0 0 13px; color: #8c98a6; font-size: 11px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+.industry-jump-nav nav { display: grid; gap: 4px; }
+.industry-jump-nav a { display: block; padding: 9px 12px 9px 26px; border-radius: 3px; color: #65717e; font-size: 13px; font-weight: 800; line-height: 1.25; position: relative; }
+.industry-jump-nav a::before { content: ""; position: absolute; left: 10px; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: #cbd4de; transform: translateY(-50%); }
+.industry-jump-nav a:hover,
+.industry-jump-nav a:focus-visible,
+.industry-jump-nav a.active { background: #f1f5f8; color: var(--navy); outline: 0; }
+.industry-jump-nav a:hover::before,
+.industry-jump-nav a:focus-visible::before,
+.industry-jump-nav a.active::before { background: var(--yellow); box-shadow: 0 0 0 3px rgba(253,228,40,.24); }
+.industry-detail-two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 460px); gap: 58px; align-items: center; }
+.industry-detail-intro,
+.industry-detail-section { background: #f7f9fc; }
+.industry-detail-section:nth-of-type(odd) { background: #fff; }
+.industry-detail-two-col h2,
+.industry-detail-centered h2 { color: var(--navy); font-size: clamp(24px, 3vw, 34px); line-height: 1.16; font-weight: 900; }
+.industry-detail-two-col p,
+.industry-detail-centered p { color: #56616d; font-size: 16px; line-height: 1.85; }
+.industry-detail-two-col figure,
+.industry-detail-proof { margin: 0; padding: 22px; border: 1px solid #e0e6ee; background: #fff; box-shadow: 0 18px 45px rgba(0,46,91,.12); }
+.industry-detail-two-col figure img,
+.industry-detail-proof img { width: 100%; height: 330px; object-fit: cover; }
+.industry-detail-dark { background: var(--navy); color: #fff; }
+.industry-detail-dark h2,
+.industry-detail-dark h3 { color: #fff; }
+.industry-detail-dark p { color: rgba(255,255,255,.78); }
+.industry-detail-card-stack { display: grid; gap: 18px; }
+.industry-detail-card-stack article,
+.industry-detail-grid article,
+.industry-detail-split-cards article,
+.industry-detail-steps article,
+.industry-detail-need-box,
+.industry-detail-cta-card { border: 1px solid rgba(0,46,91,.12); background: #fff; box-shadow: 0 14px 34px rgba(0,46,91,.08); padding: 28px; }
+.industry-detail-dark .industry-detail-card-stack article,
+.industry-detail-dark .industry-detail-grid article,
+.industry-detail-dark .industry-detail-need-box,
+.industry-detail-dark .industry-detail-cta-card { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.08); box-shadow: none; }
+.industry-detail-card-stack h3,
+.industry-detail-grid h3,
+.industry-detail-split-cards h3,
+.industry-detail-steps h3 { color: var(--navy); font-size: 20px; font-weight: 900; }
+.industry-detail-dark .industry-detail-card-stack h3,
+.industry-detail-dark .industry-detail-grid h3,
+.industry-detail-dark .industry-detail-need-box h3,
+.industry-detail-dark .industry-detail-cta-card h3 { color: #fff; }
+.industry-detail-centered { max-width: 820px; margin: 0 auto 44px; text-align: center; }
+.industry-detail-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.industry-detail-grid p,
+.industry-detail-split-cards p,
+.industry-detail-steps p { margin-bottom: 0; color: #66717d; }
+.industry-detail-split-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 28px; }
+.industry-detail-need-box { align-self: start; }
+.industry-detail-need-box .eyebrow { color: var(--yellow); }
+.industry-detail-need-box div { display: grid; grid-template-columns: 130px 1fr; gap: 18px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.16); }
+.industry-detail-need-box strong { color: #fff; }
+.industry-detail-need-box span { color: rgba(255,255,255,.8); }
+.industry-detail-need-box .btn,
+.industry-detail-cta-card .btn,
+.industry-detail-final-cta .btn { margin-top: 22px; background: var(--yellow); color: var(--navy); }
+.industry-detail-steps { display: grid; gap: 18px; }
+.industry-detail-steps span { width: 42px; height: 42px; display: grid; place-items: center; margin-bottom: 18px; background: #edf4fb; color: var(--blue); font-weight: 900; border-radius: 50%; }
+.industry-detail-systems .btn { width: 100%; margin-top: 18px; background: #fff; color: var(--navy); }
+.industry-detail-proof .check-list { margin: 20px 0 0; }
+.industry-detail-proof li { padding: 13px 0 13px 30px; border-top: 1px solid #e8edf2; color: #4e5a66; }
+.industry-detail-scope-list { display: grid; gap: 12px; margin: 22px 0; }
+.industry-detail-scope-list li { padding: 13px 18px 13px 44px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.06); color: rgba(255,255,255,.82); }
+.industry-detail-scope-list li::before { left: 18px; color: var(--yellow); }
+.industry-detail-managing .container { max-width: 820px; text-align: center; }
+.industry-detail-managing p { color: rgba(255,255,255,.82); font-size: 17px; line-height: 1.8; }
+.industry-detail-managing .btn { margin-top: 12px; background: var(--yellow); color: var(--navy); }
+.industry-detail-faqs details { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.08); }
+.industry-detail-faqs summary { color: #fff; }
+.industry-detail-faqs p { color: rgba(255,255,255,.78); padding-top: 12px; }
+.industry-detail-faqs.light details { background: #fff; border-color: #edf1f5; box-shadow: 0 10px 28px rgba(0,46,91,.08); }
+.industry-detail-faqs.light summary { color: var(--heading); }
+.industry-detail-faqs.light p { color: #5d6874; }
+.industry-detail-cta-card { align-self: start; }
+.industry-detail-cta-card.light { background: #fff; }
+.industry-detail-cta-card.light h3 { color: var(--navy); }
+.industry-detail-cta-card.light p { color: #66717d; }
+.industry-detail-cta-card.light .secondary { color: var(--navy); }
+.industry-detail-cta-card .secondary,
+.industry-detail-final-cta .secondary { background: transparent; border: 1px solid currentColor; color: #fff; margin-left: 10px; }
+.industry-detail-final-cta { background: linear-gradient(90deg, rgba(0,46,91,.92), rgba(0,46,91,.82)), url("/assets/images/services/detail/architectural-bim-modeling-banner.jpg") center/cover; color: #fff; padding: 78px 0; text-align: center; }
+.industry-detail-final-cta h2 { max-width: 860px; margin: 0 auto 20px; color: #fff; font-size: clamp(24px, 3vw, 34px); font-weight: 900; }
+.industry-detail-final-cta p { max-width: 760px; margin: 0 auto 12px; color: rgba(255,255,255,.82); font-size: 17px; line-height: 1.75; }
